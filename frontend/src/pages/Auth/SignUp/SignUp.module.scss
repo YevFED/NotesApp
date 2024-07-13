@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .signUpForm {
+    width: 500px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    gap: 30px;
+  }
+  .formInput {
+    width: 80%;
+    height: 50px;
+    padding: 0px 15px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+  }
+}
