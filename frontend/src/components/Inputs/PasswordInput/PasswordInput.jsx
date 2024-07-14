@@ -21,6 +21,7 @@ const PasswordInput = ({ password, setPassword }) => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+
       {showPassword ? (
         <FaEyeSlash
           cursor="pointer"

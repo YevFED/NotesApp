@@ -1,0 +1,29 @@
+.searchBar {
+  width: 600px;
+  height: 50px;
+  background-color: rgb(240, 240, 240);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  .barInput {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+  }
+
+  .barClear {
+    margin-right: 15px;
+  }
+
+  .barSearch {
+    fill: rgb(150, 150, 150);
+    transition: 0.3s all;
+    margin-right: 5px;
+    &:hover {
+      fill: black;
+      transition: 0.3s all;
+    }
+  }
+}

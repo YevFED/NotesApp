@@ -74,9 +74,9 @@ const SignUp = () => {
           </button>
 
           <p className={styles.formLink}>
-            Already have an account ? <br />
+            Already have an account ?{" "}
             <Link to="/login" className={styles.Link}>
-              Log in{" "}
+              Log in
             </Link>
           </p>
         </form>
