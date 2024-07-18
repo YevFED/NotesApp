@@ -13,22 +13,10 @@ const Home = () => {
       <div className={styles.wrapper}>
         <h1 className={styles.cardTableTitle}>Notes List</h1>
         <div className={styles.cardTable}>
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
-          <Card title={title} desc={desc} />
+          <Card title={title} desc={desc.slice(0, 50) + "..."} />
+          <Card title={title} desc={desc.slice(0, 50) + "..."} />
+          <Card title={title} desc={desc.slice(0, 50) + "..."} />
+          <Card title={title} desc={desc.slice(0, 50) + "..."} />
         </div>
       </div>
     </>

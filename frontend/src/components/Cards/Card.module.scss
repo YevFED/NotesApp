@@ -9,18 +9,56 @@
     transition: 0.3s all;
   }
   .cardInfo {
+    width: inherit;
+    height: inherit;
     padding: 20px;
-    .cardTitle {
-      font-size: 20px;
-      font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .cardTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .cardTitle {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .buttonPin {
+        &:hover {
+          fill: blue;
+        }
+      }
     }
+
     .cardDesc {
+      margin-bottom: 30px;
       font-weight: 500;
+      hyphens: auto;
     }
     .cardTags {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .Tag {
         font-weight: 300;
         color: rgb(20, 20, 20);
+      }
+      .cardButtons {
+        width: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .buttonEdit {
+          &:hover {
+            fill: green;
+          }
+        }
+        .buttonDelete {
+          &:hover {
+            fill: red;
+          }
+        }
       }
     }
   }
