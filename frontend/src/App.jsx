@@ -5,7 +5,7 @@ import Login from "./pages/Auth/Login/Login";
 
 function App() {
   return (
-    <>
+    <> 
       <Routes>
         <Route path="/dashboard" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
