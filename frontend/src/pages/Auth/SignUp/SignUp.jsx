@@ -19,7 +19,12 @@ const SignUp = () => {
     e.preventDefault();
 
     if (!nickname) {
-      setError("Plese enter your nickname");
+      setError("Plese enter valid nickname");
+      return;
+    }
+
+    if(nickname.length < 3){
+      setError("Nickname may be minimum 3 sybmols ")
       return;
     }
 

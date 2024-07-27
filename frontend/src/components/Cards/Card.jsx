@@ -4,32 +4,45 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { MdOutlinePushPin } from "react-icons/md";
 
-const Card = ({ title, desc }) => {
+const Card = ({
+  title,
+  desc,
+  date,
+  tags,
+  isPinned,
+  onEdit,
+  onDelete,
+  onPinNote,
+}) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardInfo}>
         <div className={styles.cardTop}>
           <p className={styles.cardTitle}>{title}</p>
+
           <MdOutlinePushPin
             cursor="pointer"
             size={25}
-            className={styles.buttonPin}
+            className={isPinned ? styles.cardPinned : ""}
           />
         </div>
+        <span>{date}</span>
 
-        <p className={styles.cardDesc}>{desc.slice(0, 60)}</p>
+        <p className={styles.cardDesc}>{desc.slice(0, 50) + "..."}</p>
         <div className={styles.cardTags}>
-          <p className={styles.Tag}>#Tags</p>
+          <p className={styles.Tag}>{"#" + tags}</p>
           <div className={styles.cardButtons}>
             <MdModeEditOutline
               cursor="pointer"
               size={25}
               className={styles.buttonEdit}
+              onClick={onEdit}
             />
             <MdDelete
               cursor="pointer"
               size={25}
               className={styles.buttonDelete}
+              onClick={onDelete}
             />
           </div>
         </div>
