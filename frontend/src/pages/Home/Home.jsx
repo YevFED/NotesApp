@@ -17,6 +17,8 @@ const Home = () => {
     setOpenAddEditModal({ isShown: false, type: "add", data: null });
   }
 
+  //Styles for Modal Window
+
   const modalStyles = {
     content: {
       top: "50%",
@@ -26,9 +28,10 @@ const Home = () => {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       width: "50%",
-      height: "70%",
+      height: "80%",
       backgroundColor: "white",
       borderRadius: "20px",
+      padding: "50px",
     },
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",

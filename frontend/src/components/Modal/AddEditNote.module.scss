@@ -41,7 +41,9 @@
     font-weight: 500;
   }
   textarea {
-    width: 100%;
+    max-width: 100%;
+    resize: none;
+
     background-color: rgb(240 240 240);
     font-size: 18px;
     padding: 20px;
@@ -61,4 +63,6 @@
   font-size: 21px;
   color: white;
   cursor: pointer;
+  border-radius: 20px;
+  margin-top: 100px;
 }
