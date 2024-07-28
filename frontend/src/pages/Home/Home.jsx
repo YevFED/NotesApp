@@ -28,7 +28,7 @@ const Home = () => {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       width: "50%",
-      height: "80%",
+      height: "auto",
       backgroundColor: "white",
       borderRadius: "20px",
       padding: "50px",

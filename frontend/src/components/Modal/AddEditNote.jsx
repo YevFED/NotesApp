@@ -1,11 +1,28 @@
 import React, { useState } from "react";
 import styles from "./AddEditNote.module.scss";
 import { MdClose } from "react-icons/md";
+import TagInput from "../Inputs/TagInput/TagInput";
 
 const AddEditNote = ({ closeModal }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [tags, setTags] = useState([]);
+
+  const [error, setError] = useState("");
+
+  const handleAddNote = () => {
+    if (!title) {
+      setError("Please write the title");
+      return;
+    }
+
+    if (!desc) {
+      setError("Please write a description");
+      return;
+    }
+
+    setError("");
+  };
 
   return (
     <div>
@@ -42,9 +59,14 @@ const AddEditNote = ({ closeModal }) => {
 
       <div className={styles.tagInput}>
         <label htmlFor="">Tags</label>
+        <TagInput tags={tags} setTags={setTags} />
       </div>
 
-      <button className={styles.formButton}>Add</button>
+      <p className={styles.formError}>{error}</p>
+
+      <button className={styles.formButton} onClick={handleAddNote}>
+        Add
+      </button>
     </div>
   );
 };
