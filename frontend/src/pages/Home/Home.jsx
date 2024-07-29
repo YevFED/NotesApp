@@ -13,9 +13,13 @@ const Home = () => {
     data: null,
   });
 
-  function closeModal() {
+  const openAddModal = () => {
+    setOpenAddEditModal({ isShown: true, type: "add", data: null });
+  };
+
+  const closeModal = () => {
     setOpenAddEditModal({ isShown: false, type: "add", data: null });
-  }
+  };
 
   //Styles for Modal Window
 
@@ -63,22 +67,16 @@ const Home = () => {
             style={modalStyles}
             contentLabel=""
           >
-            <AddEditNote closeModal={closeModal} />
+            <AddEditNote
+              closeModal={closeModal}
+              type={openAddEditModal.type}
+              noteData={openAddEditModal.type}
+            />
           </Modal>
         </div>
 
-        <button className={styles.addEditButton}>
-          <MdAdd
-            fill="white"
-            size={30}
-            onClick={() => {
-              setOpenAddEditModal({
-                isShown: true,
-                type: "add",
-                data: null,
-              });
-            }}
-          />
+        <button className={styles.addEditButton} onClick={openAddModal}>
+          <MdAdd fill="white" size={30} />
         </button>
       </div>
     </>

@@ -22,7 +22,16 @@ const AddEditNote = ({ closeModal }) => {
     }
 
     setError("");
+
+    if (type === "edit") {
+      editNote();
+    } else {
+      addNewNote();
+    }
   };
+
+  const addNewNote = async () => {};
+  const editNote = async () => {};
 
   return (
     <div>
