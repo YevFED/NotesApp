@@ -25,6 +25,11 @@ const Login = () => {
       return;
     }
 
+    if (password.length < 8) {
+      setError("Password may have 8 symbols");
+      return;
+    }
+
     setError("");
   };
   return (
