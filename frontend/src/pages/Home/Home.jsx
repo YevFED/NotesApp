@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Card from "../../components/Cards/Card";
 import styles from "./Home.module.scss";
 import AddEditNote from "../../components/Modal/AddEditNote";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -12,6 +15,7 @@ const Home = () => {
     type: "add",
     data: null,
   });
+  const [userInfo, setUserInfo] = useState(null);
 
   const openAddModal = () => {
     setOpenAddEditModal({ isShown: true, type: "add", data: null });
@@ -19,6 +23,27 @@ const Home = () => {
 
   const closeModal = () => {
     setOpenAddEditModal({ isShown: false, type: "add", data: null });
+  };
+
+  // Get User Info
+
+  const navigate = useNavigate();
+
+  const getUserInfo = async () => {
+    try {
+      const response = await axiosInstance.get("/get-user");
+
+      if (response.data && response.data.user) {
+        setUserInfo(response.data.user);
+      }
+      console.log(response.data.user);
+    } catch (error) {
+      if (error.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+        console.log("error");
+      }
+    }
   };
 
   //Styles for Modal Window
@@ -41,6 +66,11 @@ const Home = () => {
       backgroundColor: "rgba(0,0,0,0.2)",
     },
   };
+
+  useEffect(() => {
+    getUserInfo();
+    return () => {};
+  }, []);
 
   return (
     <>

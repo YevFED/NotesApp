@@ -1,0 +1,30 @@
+.loaderWrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 1s all ease-in-out;
+  .rotatebleCircle {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    border: 20px solid black;
+    border-radius: 50%;
+    border-style: groove;
+    animation: rotate 10s linear;
+  }
+  .loaderText {
+    font-size: 23px;
+    font-weight: 700;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}

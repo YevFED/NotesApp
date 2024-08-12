@@ -3,7 +3,9 @@ import Header from "../../../components/Header/Header";
 import styles from "./Login.module.scss";
 import PasswordInput from "../../../components/Inputs/PasswordInput/PasswordInput";
 import { validationEmail } from "../../../utils/helper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import axiosInstance from "../../../utils/axiosInstance";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -11,6 +13,8 @@ const Login = () => {
   const [error, setError] = useState(null);
 
   const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,12 +29,30 @@ const Login = () => {
       return;
     }
 
-    if (password.length < 8) {
-      setError("Password may have 8 symbols");
-      return;
-    }
-
     setError("");
+
+    // Login API Call
+    try {
+      const response = await axiosInstance.post("/login", {
+        email: email,
+        password: password,
+      });
+
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("Wrong Email or Password");
+      }
+    }
   };
   return (
     <>
