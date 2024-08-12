@@ -19,12 +19,12 @@ const SignUp = () => {
     e.preventDefault();
 
     if (!nickname) {
-      setError("Plese enter valid nickname");
+      setError("Plese enter valid fullname");
       return;
     }
 
-    if(nickname.length < 3){
-      setError("Nickname may be minimum 3 sybmols ")
+    if (nickname.length < 3) {
+      setError("Nickname may be minimum 3 sybmols ");
       return;
     }
 
@@ -54,7 +54,7 @@ const SignUp = () => {
           <p className={styles.formTitle}>Sign Up</p>
           <input
             type="text"
-            placeholder="Nickname :"
+            placeholder="Fullname :"
             className={styles.formInput}
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}

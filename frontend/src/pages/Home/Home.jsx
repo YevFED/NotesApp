@@ -5,9 +5,9 @@ import styles from "./Home.module.scss";
 import AddEditNote from "../../components/Modal/AddEditNote";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../utils/axiosInstance";
+import axiosIntance from "../../utils/axiosInstance";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -31,20 +31,22 @@ const Home = () => {
 
   const getUserInfo = async () => {
     try {
-      const response = await axiosInstance.get("/get-user");
+      const response = await axiosIntance.get("/get-user");
 
       if (response.data && response.data.user) {
         setUserInfo(response.data.user);
+        console.log(response.data.user);
       }
-      console.log(response.data.user);
     } catch (error) {
-      if (error.status === 401) {
+      if (isAxiosError(error) && error.response.status === 401) {
         localStorage.clear();
         navigate("/login");
-        console.log("error");
       }
     }
   };
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   //Styles for Modal Window
 
@@ -67,14 +69,9 @@ const Home = () => {
     },
   };
 
-  useEffect(() => {
-    getUserInfo();
-    return () => {};
-  }, []);
-
   return (
     <>
-      <Header />
+      <Header userInfo={userInfo} />
 
       <div className={styles.wrapper}>
         <h1 className={styles.cardTableTitle}>Notes List</h1>

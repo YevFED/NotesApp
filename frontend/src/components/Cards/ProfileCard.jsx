@@ -3,14 +3,14 @@ import styles from "./ProfileCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import { getInitials } from "../../utils/helper";
 
-const ProfileCard = ({ onLogout }) => {
+const ProfileCard = ({ userInfo, onLogout }) => {
   return (
     <div className={styles.profileCard}>
       <div className={styles.initialsCircle}>
-        {getInitials("Yevhenii Chaika")}
+        {getInitials(userInfo?.fullName)}
       </div>
       <div className={styles.cardBox}>
-        <p className={styles.cardName}>Yevhenii</p>
+        <p className={styles.cardName}>{userInfo?.fullName}</p>
         <button className={styles.logoutButton} onClick={onLogout}>
           Log out
         </button>

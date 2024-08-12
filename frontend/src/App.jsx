@@ -6,28 +6,28 @@ import Loader from "./components/Loader/Loader";
 import { useEffect, useState } from "react";
 
 function App() {
-  // const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const dateFetch = () => {
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 2000);
-  //   };
+  useEffect(() => {
+    const dateFetch = () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    };
 
-  //   dateFetch();
-  // }, []);
+    dateFetch();
+  }, []);
   return (
     <>
-      {/* {Loading ? (
+      {Loading ? (
         <Loader />
-      ) : ( */}
-      <Routes>
-        <Route path="/dashboard" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-      {/* )} */}
+      ) : (
+        <Routes>
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      )}
     </>
   );
 }

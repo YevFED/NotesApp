@@ -5,7 +5,7 @@ import PasswordInput from "../../../components/Inputs/PasswordInput/PasswordInpu
 import { validationEmail } from "../../../utils/helper";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import axiosInstance from "../../../utils/axiosInstance";
+import axiosIntance from "../../../utils/axiosInstance";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -33,7 +33,7 @@ const Login = () => {
 
     // Login API Call
     try {
-      const response = await axiosInstance.post("/login", {
+      const response = await axiosIntance.post("/login", {
         email: email,
         password: password,
       });
