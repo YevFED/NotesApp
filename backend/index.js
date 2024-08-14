@@ -24,7 +24,7 @@ const Note = require("./models/note.model");
 // Creating app
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.json("Server started correctly");
@@ -76,9 +76,13 @@ app.post("/signUp", async (req, res) => {
 
   //  Creating a token
 
-  const accessToken = jwt.sign({ newUser }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "36000m",
-  });
+  const accessToken = jwt.sign(
+    { user: newUser },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: "36000m",
+    }
+  );
 
   return res.json({
     error: false,

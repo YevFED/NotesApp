@@ -35,7 +35,6 @@ const Home = () => {
 
       if (response.data && response.data.user) {
         setUserInfo(response.data.user);
-        console.log(response.data.user);
       }
     } catch (error) {
       if (isAxiosError(error) && error.response.status === 401) {

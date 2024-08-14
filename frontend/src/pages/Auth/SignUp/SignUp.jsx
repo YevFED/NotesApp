@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Header from "../../../components/Header/Header";
-
 import styles from "./SignUp.module.scss";
 import PasswordInput from "../../../components/Inputs/PasswordInput/PasswordInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { validationEmail } from "../../../utils/helper";
+import axiosIntance from "../../../utils/axiosInstance";
 
 const SignUp = () => {
   const [error, setError] = useState(null);
@@ -14,6 +14,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
 
   const [nickname, setNickname] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -42,8 +44,38 @@ const SignUp = () => {
       setError("Password may be minimum 8 sybmols");
       return;
     }
-
     setError("");
+
+    try {
+      const response = await axiosIntance.post("/signUp", {
+        fullName: nickname,
+        email: email,
+        password: password,
+      });
+
+      if (response.data && response.data.error) {
+        setError(response.data.message);
+        return;
+      }
+
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/dashboard");
+        console.log("User has created Succesfull");
+        console.log(localStorage.getItem("token"));
+      }
+      console.log(nickname, email, password);
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexepted error on server");
+      }
+    }
   };
 
   return (
@@ -74,7 +106,11 @@ const SignUp = () => {
 
           <p className={styles.formError}>{error}</p>
 
-          <button type="submit" className={styles.formButton}>
+          <button
+            type="submit"
+            className={styles.formButton}
+            onClick={handleSignup}
+          >
             Sign Up
           </button>
 
@@ -89,5 +125,4 @@ const SignUp = () => {
     </>
   );
 };
-
 export default SignUp;

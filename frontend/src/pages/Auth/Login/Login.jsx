@@ -71,7 +71,11 @@ const Login = () => {
           />
           <PasswordInput password={password} setPassword={setPassword} />
           <p className={styles.formError}>{error}</p>
-          <button type="submit" className={styles.formButton}>
+          <button
+            type="submit"
+            className={styles.formButton}
+            onClick={handleLogin}
+          >
             Log in
           </button>
           <p className={styles.formLink}>
