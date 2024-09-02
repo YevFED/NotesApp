@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
 import styles from "./Login.module.scss";
 import PasswordInput from "../../../components/Inputs/PasswordInput/PasswordInput";
 import { validationEmail } from "../../../utils/helper";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosIntance from "../../../utils/axiosInstance";
 
@@ -54,6 +54,7 @@ const Login = () => {
       }
     }
   };
+
   return (
     <>
       <Header />

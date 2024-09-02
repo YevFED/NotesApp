@@ -17,11 +17,13 @@ const Header = ({ userInfo }) => {
         <Link to="/dashboard" className={styles.headerLogo}>
           NotesApp
         </Link>
-        <SearchBar />
       </div>
 
       {localStorage.getItem("token") ? (
-        <ProfileCard userInfo={userInfo} onLogout={onLogout} />
+        <>
+          <SearchBar />
+          <ProfileCard userInfo={userInfo} onLogout={onLogout} />
+        </>
       ) : (
         <div className={styles.headerLinks}>
           <Link to="/login">Log in</Link>

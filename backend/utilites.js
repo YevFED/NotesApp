@@ -4,10 +4,6 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  console.log(authHeader, " AUTH HEADER ");
-
-  console.log(token, " USER TOKEN ");
-
   if (!token) {
     console.log("token not created");
     return res.sendStatus(401);

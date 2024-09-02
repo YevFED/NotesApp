@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import axios, { isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosIntance from "../../utils/axiosInstance";
+import moment from "moment";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -16,6 +17,8 @@ const Home = () => {
     data: null,
   });
   const [userInfo, setUserInfo] = useState(null);
+
+  const [Notes, setNotes] = useState([]);
 
   const openAddModal = () => {
     setOpenAddEditModal({ isShown: true, type: "add", data: null });
@@ -43,9 +46,6 @@ const Home = () => {
       }
     }
   };
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   //Styles for Modal Window
 
@@ -68,24 +68,62 @@ const Home = () => {
     },
   };
 
+  // Geting all notes
+
+  const getAllNotes = async () => {
+    try {
+      const response = await axiosIntance.get("/get-all-notes");
+
+      if (response.data && response.data.notes) {
+        setNotes(response.data.notes);
+      }
+    } catch (error) {
+      console.log("An unexepted error on the server");
+    }
+  };
+
+  // Delete Note
+
+  const deleteNote = async () => {
+    try {
+    } catch {}
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    getAllNotes();
+    return () => {};
+  }, []);
+
   return (
     <>
       <Header userInfo={userInfo} />
-
       <div className={styles.wrapper}>
-        <h1 className={styles.cardTableTitle}>Notes List</h1>
-        <div className={styles.cardTable}>
-          <Card
-            title="adasd"
-            date="3rd April"
-            desc="Desc"
-            tags="Hello"
-            isPinned={false}
-            onEdit={() => {}}
-            onDelete={() => {}}
-            onPinNote={() => {}}
-          />
-        </div>
+        {Notes.length > 0 ? (
+          <>
+            <h1 className={styles.cardTableTitle}>Notes List</h1>
+            <div className={styles.cardTable}>
+              {Notes.map((item, index) => (
+                <Card
+                  key={item._id}
+                  title={item.title}
+                  date={moment(item.createdOn).format("Do MMM YYYY")}
+                  desc={item.content}
+                  tags={[item.tags]}
+                  isPinned={item.isPinned}
+                  onEdit={() => {}}
+                  onDelete={() => {}}
+                  onPinNote={() => {}}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className={styles.tableEmpty}>
+            Your dashoard is empty , let's just add your first Note!
+          </p>
+        )}
+
         <div className={styles.modalWrapper}>
           <Modal
             isOpen={openAddEditModal.isShown}

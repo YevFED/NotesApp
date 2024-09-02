@@ -24,7 +24,7 @@ const Note = require("./models/note.model");
 // Creating app
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.get("/", (req, res) => {
   res.json("Server started correctly");
@@ -254,6 +254,7 @@ app.get("/get-all-notes", authenticateToken, async (req, res) => {
       isPinned: -1,
     });
 
+    console.log(notes);
     return res.json({
       error: false,
       notes,
