@@ -9,4 +9,5 @@
   outline: none;
   border: 0;
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }

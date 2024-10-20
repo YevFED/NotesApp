@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Card from "../../components/Cards/Card";
 import styles from "./Home.module.scss";
 import AddEditNote from "../../components/Modal/AddEditNote";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
-import axios, { isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosIntance from "../../utils/axiosInstance";
 import moment from "moment";
@@ -26,6 +26,9 @@ const Home = () => {
 
   const closeModal = () => {
     setOpenAddEditModal({ isShown: false, type: "add", data: null });
+  };
+  const editModal = () => {
+    setOpenAddEditModal({ isShown: true, type: "edit", data: null });
   };
 
   // Get User Info
@@ -105,13 +108,13 @@ const Home = () => {
             <div className={styles.cardTable}>
               {Notes.map((item, index) => (
                 <Card
-                  key={item._id}
+                  key={index}
                   title={item.title}
                   date={moment(item.createdOn).format("Do MMM YYYY")}
-                  desc={item.content}
-                  tags={[item.tags]}
+                  content={item.content}
+                  tags={item.tags}
                   isPinned={item.isPinned}
-                  onEdit={() => {}}
+                  onEdit={editModal}
                   onDelete={() => {}}
                   onPinNote={() => {}}
                 />
@@ -120,7 +123,7 @@ const Home = () => {
           </>
         ) : (
           <p className={styles.tableEmpty}>
-            Your dashoard is empty , let's just add your first Note!
+            Your dashboard is empty , let`s just add your first Note!
           </p>
         )}
 
@@ -134,7 +137,8 @@ const Home = () => {
             <AddEditNote
               closeModal={closeModal}
               type={openAddEditModal.type}
-              noteData={openAddEditModal.type}
+              noteData={openAddEditModal.data}
+              getAllNotes={getAllNotes}
             />
           </Modal>
         </div>

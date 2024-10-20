@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./AddEditNote.module.scss";
 import { MdClose } from "react-icons/md";
 import TagInput from "../Inputs/TagInput/TagInput";
+import axiosIntance from "../../utils/axiosInstance";
 
-const AddEditNote = ({ closeModal }) => {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [tags, setTags] = useState([]);
+const AddEditNote = ({ noteData, type, closeModal, getAllNotes }) => {
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || []);
 
   const [error, setError] = useState("");
+
+  // Add new note
+  const addNewNote = async () => {
+    try {
+      const response = await axiosIntance.post("/add-note", {
+        title,
+        content,
+        tags,
+      });
+      console.log(response);
+      if (response.data && response.data.note) {
+        getAllNotes();
+        closeModal();
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
 
   const handleAddNote = () => {
     if (!title) {
@@ -16,7 +41,7 @@ const AddEditNote = ({ closeModal }) => {
       return;
     }
 
-    if (!desc) {
+    if (!content) {
       setError("Please write a description");
       return;
     }
@@ -30,8 +55,29 @@ const AddEditNote = ({ closeModal }) => {
     }
   };
 
-  const addNewNote = async () => {};
-  const editNote = async () => {};
+  const editNote = async () => {
+    const noteId = noteData._id;
+    try {
+      const response = await axiosIntance.put("/edit-note/" + noteId, {
+        title,
+        content,
+        tags,
+      });
+      console.log(response);
+      if (response.data && response.data.note) {
+        getAllNotes();
+        closeModal();
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
 
   return (
     <div>
@@ -61,8 +107,8 @@ const AddEditNote = ({ closeModal }) => {
           type="text"
           placeholder="Description"
           rows={10}
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
       </div>
 
@@ -73,9 +119,15 @@ const AddEditNote = ({ closeModal }) => {
 
       <p className={styles.formError}>{error}</p>
 
-      <button className={styles.formButton} onClick={handleAddNote}>
-        Add
-      </button>
+      {type === "add" ? (
+        <button className={styles.formButton} onClick={handleAddNote}>
+          Add
+        </button>
+      ) : (
+        <button className={styles.formButton} onClick={editNote}>
+          Update
+        </button>
+      )}
     </div>
   );
 };

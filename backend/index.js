@@ -193,7 +193,7 @@ app.post("/add-note", authenticateToken, async (req, res) => {
   }
 });
 
-// Edit tag
+// Edit note
 app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
   const noteId = req.params.noteId;
   const { title, content, tags, isPinned } = req.body;
@@ -254,7 +254,6 @@ app.get("/get-all-notes", authenticateToken, async (req, res) => {
       isPinned: -1,
     });
 
-    console.log(notes);
     return res.json({
       error: false,
       notes,
@@ -278,7 +277,9 @@ app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
     const note = await Note.findOne({ _id: noteId, userId: user._id });
 
     if (!note) {
-      return res.status(404).json({ error: true, message: "Note not finded" });
+      return res
+        .status(404)
+        .json({ error: true, message: "Note is undefinded" });
     }
 
     await Note.deleteOne({
@@ -317,7 +318,7 @@ app.put("/pin-note/:noteId", authenticateToken, async (req, res) => {
     }
 
     if (isPinned) {
-      note.isPinned = isPinned || false;
+      note.isPinned = !note.isPinned;
     }
 
     await note.save();
