@@ -27,9 +27,6 @@ const Home = () => {
   const closeModal = () => {
     setOpenAddEditModal({ isShown: false, type: "add", data: null });
   };
-  const editModal = () => {
-    setOpenAddEditModal({ isShown: true, type: "edit", data: null });
-  };
 
   // Get User Info
 
@@ -87,9 +84,22 @@ const Home = () => {
 
   // Delete Note
 
-  const deleteNote = async () => {
+  const deleteNote = async (data) => {
+    const noteId = data._id;
     try {
-    } catch {}
+      const response = await axiosIntance.delete("/delete-note/" + noteId);
+      if (response.data && !response.data.error) {
+        getAllNotes();
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -114,8 +124,14 @@ const Home = () => {
                   content={item.content}
                   tags={item.tags}
                   isPinned={item.isPinned}
-                  onEdit={editModal}
-                  onDelete={() => {}}
+                  onEdit={() =>
+                    setOpenAddEditModal({
+                      isShown: true,
+                      type: "edit",
+                      data: item,
+                    })
+                  }
+                  onDelete={() => deleteNote(item)}
                   onPinNote={() => {}}
                 />
               ))}

@@ -119,15 +119,12 @@ const AddEditNote = ({ noteData, type, closeModal, getAllNotes }) => {
 
       <p className={styles.formError}>{error}</p>
 
-      {type === "add" ? (
-        <button className={styles.formButton} onClick={handleAddNote}>
-          Add
-        </button>
-      ) : (
-        <button className={styles.formButton} onClick={editNote}>
-          Update
-        </button>
-      )}
+      <button
+        className={styles.formButton}
+        onClick={type === "add" ? handleAddNote : editNote}
+      >
+        {type === "add" ? "Add" : "Update"}
+      </button>
     </div>
   );
 };
