@@ -12,23 +12,20 @@ const Header = ({ userInfo }) => {
     localStorage.clear();
   };
   return (
-    <header className={styles.header}>
+    <header
+      className={
+        localStorage.getItem("token") ? styles.authHeader : styles.header
+      }
+    >
       <div className={styles.headerLeftSide}>
-        <Link to="/dashboard" className={styles.headerLogo}>
-          NotesApp
-        </Link>
+        <p className={styles.headerLogo}>NotesApp</p>
       </div>
 
-      {localStorage.getItem("token") ? (
+      {localStorage.getItem("token") && (
         <>
           <SearchBar />
           <ProfileCard userInfo={userInfo} onLogout={onLogout} />
         </>
-      ) : (
-        <div className={styles.headerLinks}>
-          <Link to="/login">Log in</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
       )}
     </header>
   );

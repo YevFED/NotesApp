@@ -1,0 +1,57 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  .title {
+    font-size: 78px;
+    font-weight: 900;
+    animation: fade 2s;
+  }
+  .desc {
+    margin-top: 50px;
+  }
+  .button {
+    width: 230px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blue;
+    border-radius: 20px;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    text-shadow: 0px 0px 5px black;
+    transition: 0.3s ease;
+    animation: fade2 2s;
+
+    &:hover {
+      transition: 0.3s ease;
+      border-radius: 10px;
+    }
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+    padding-bottom: 500px;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes fade2 {
+  0% {
+    opacity: 0;
+    margin: 100px;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
