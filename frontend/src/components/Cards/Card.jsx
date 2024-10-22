@@ -19,7 +19,7 @@ const Card = ({
       <div className={styles.cardInfo}>
         <div className={styles.cardTop}>
           <p className={styles.cardTitle}>
-            {title.length > 20 ? title.slice(0, 20) + "..." : title}
+            {title.length > 25 ? title.slice(0, 25) + "..." : title}
           </p>
 
           <MdOutlinePushPin
@@ -32,7 +32,7 @@ const Card = ({
         <span className={styles.cardDate}>{date}</span>
 
         <p className={styles.cardDesc}>
-          {content.length > 10 ? content.slice(0, 20) + "..." : content}
+          {content.length > 40 ? content.slice(0, 40) + "..." : content}
         </p>
         <div className={styles.cardTags}>
           <p className={styles.Tag}>{tags.map((item) => `#${item} `)}</p>
